@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web3 · AI · Finance Lab — 小白学习区</title>
+<style>
+:root{--bg:#13131a;--bg2:#1c1c26;--bg3:#26263340;--tx:#f1f1f6;--tx2:#a9a9ba;--tx3:#6f6f82;--ac:#9d8bff;--ac2:#5dcaff;--acbg:#1d1b33;--up:#5dcaa5;--dn:#f09595;--bd:rgba(255,255,255,.1);--bd2:rgba(255,255,255,.17)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:radial-gradient(1100px 480px at 50% -8%,#211f3a 0%,var(--bg) 55%);color:var(--tx);line-height:1.65;max-width:840px;margin:0 auto;padding:0 16px 90px;-webkit-font-smoothing:antialiased}
+a{color:var(--ac2);text-decoration:none}
+.hero{text-align:center;padding:42px 0 18px}
+.badge{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ac);background:var(--acbg);border:.5px solid rgba(157,139,255,.3);padding:4px 12px;border-radius:20px;margin-bottom:14px}
+h1{font-size:31px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+h1 .g{background:linear-gradient(90deg,#9d8bff,#5dcaff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:14px;color:var(--tx2);margin-top:10px}
+.lvbar{display:flex;justify-content:center;gap:8px;margin:22px 0 26px;flex-wrap:wrap}
+.lv{padding:7px 16px;border-radius:20px;border:.5px solid var(--bd2);background:transparent;color:var(--tx2);font-size:13px;cursor:pointer;transition:.15s}
+.lv.on{background:var(--tx);color:#13131a;border-color:var(--tx);font-weight:600}
+.cat{margin-bottom:26px}
+.cat-h{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.cat-ico{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cat-n{font-size:17px;font-weight:600}
+.cat-d{font-size:12px;color:var(--tx3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.card{background:var(--bg2);border:.5px solid var(--bd);border-radius:14px;padding:14px;cursor:pointer;transition:.15s;position:relative;display:flex;flex-direction:column;gap:6px}
+.card:hover{border-color:var(--bd2);transform:translateY(-2px)}
+.card.soon{opacity:.55;cursor:default}
+.card.soon:hover{transform:none;border-color:var(--bd)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.lvtag{font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600}
+.t0{background:#1d3a2e;color:#7fe0bd}.t1{background:#2a2340;color:#bcaaff}.t2{background:#3a2030;color:#f0a8c8}
+.card-t{font-size:14px;font-weight:600;line-height:1.35}
+.card-d{font-size:12px;color:var(--tx3);line-height:1.5}
+.card-s{font-size:11px;color:var(--tx3);margin-top:2px}
+.ready{color:var(--up)}
+.gh{font-size:12px;color:var(--tx3);margin-top:10px;padding-top:10px;border-top:.5px solid var(--bd)}
+.gh a{margin-right:12px}
+/* lesson view */
+.back{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--tx2);cursor:pointer;margin:20px 0 14px}
+.lcard{background:var(--bg2);border:.5px solid var(--bd);border-radius:16px;padding:22px;margin-bottom:14px}
+.lh{font-size:22px;font-weight:700;margin-bottom:4px}
+.lmeta{font-size:12px;color:var(--tx3);margin-bottom:16px}
+.slide{display:none}
+.slide.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:.4}to{opacity:1}}
+.slide-ico{font-size:30px;margin-bottom:8px}
+.slide-h{font-size:18px;font-weight:600;margin-bottom:8px}
+.slide-b{font-size:14px;color:var(--tx2);line-height:1.8}
+.slide-b b{color:var(--tx)}
+.callout{background:var(--acbg);border:.5px solid rgba(157,139,255,.25);border-radius:10px;padding:11px 13px;font-size:13px;color:#cfc6ff;margin-top:12px;line-height:1.65}
+.warn{background:#3a1818;border-color:rgba(240,149,149,.3);color:#f6cdc4}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--bd2)}
+.dot.on{background:var(--ac)}
+button{padding:10px 20px;border-radius:10px;border:none;background:linear-gradient(90deg,#9d8bff,#5dcaff);color:#0e0e1a;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
+button:hover{filter:brightness(1.08)}
+button:disabled{opacity:.4;cursor:default;filter:none}
+button.ghost{background:transparent;border:.5px solid var(--bd2);color:var(--tx2)}
+.quiz{margin-top:8px}
+.qopt{display:block;width:100%;text-align:left;background:var(--bg);border:.5px solid var(--bd2);color:var(--tx);padding:10px 13px;border-radius:9px;margin-top:7px;cursor:pointer;font-size:13px;transition:.12s}
+.qopt:hover{border-color:var(--ac)}
+.qopt.right{background:#16352a;border-color:var(--up);color:#a8e6d0}
+.qopt.wrong{background:#371717;border-color:var(--dn);color:#f6cdc4}
+.assist{margin-top:14px}
+.assist summary{font-size:13px;color:var(--tx3);cursor:pointer}
+input,textarea{padding:9px 12px;border-radius:9px;border:.5px solid var(--bd2);background:var(--bg);color:var(--tx);font-size:13px;font-family:inherit;width:100%}
+.ans{font-size:13px;color:#cfc6ff;background:var(--acbg);border-radius:9px;padding:11px 13px;margin-top:8px;line-height:1.7;white-space:pre-wrap}
+.prac-intro{font-size:12.5px;color:var(--tx3);margin-bottom:12px;line-height:1.6}
+.pf{margin-bottom:11px}
+.pf label{display:block;font-size:12px;color:var(--tx2);margin-bottom:5px}
+.pf input[type=range]{width:100%;accent-color:var(--ac)}
+.prow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pout{background:var(--bg);border:.5px solid var(--bd2);border-radius:10px;padding:12px;margin-top:10px;font-size:13px;line-height:1.7}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;word-break:break-all;background:var(--bg);border:.5px solid var(--bd);border-radius:8px;padding:8px 10px;margin-top:5px}
+.big{font-size:22px;font-weight:700}
+select{padding:9px 12px;border-radius:9px;border:.5px solid var(--bd2);background:var(--bg);color:var(--tx);font-size:13px}
+.foot{text-align:center;font-size:11px;color:var(--tx3);margin-top:30px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<div id="hub">
+  <div class="hero">
+    <span class="badge">Web3 · AI · Finance Lab</span>
+    <h1>从零看懂 <span class="g">区块链 · AI · 金融</span></h1>
+    <div class="sub">给完全的小白 · 分入门/进阶/专业 · 重实操、不堆理论、不吹不忽悠</div>
+  </div>
+  <div class="lvbar" id="lvbar"></div>
+  <div id="cats"></div>
+  <div class="foot">学习/科普用途，不构成任何投资建议。涉及加密资产风险极高，务必自行判断。</div>
+</div>
+
+<div id="lesson" style="display:none"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script>
+const $=s=>document.getElementById(s);
+const LV=['入门','进阶','专业'];
+let GKEY=localStorage.getItem('gm_key')||'', curLv=-1;
+
+const CAT=[
+  {id:'web3',name:'Web3 基础',ico:'🌐',bg:'#1d3a2e',desc:'钱包、链、代币这些到底是什么',
+   gh:[['awesome-web3','https://github.com/ahmet/awesome-web3'],['以太坊官方文档','https://ethereum.org/zh/learn/']],
+   lessons:[
+     {id:'w3-1',lv:0,t:'钱包、链、代币到底是什么',d:'3分钟，用大白话拆开最基本的3个词',status:'ready'},
+     {id:'w3-2',lv:0,t:'Gas 费为什么时高时低',d:'为什么转个账有时几块、有时几百',status:'ready'},
+     {id:'w3-3',lv:1,t:'DeFi 是怎么"无银行"借贷的',d:'去中心化金融的核心机制',status:'ready'},
+     {id:'w3-4',lv:2,t:'读懂一份智能合约的安全风险',d:'常见漏洞与审计要点',status:'soon'},
+   ]},
+  {id:'ai',name:'AI 基础',ico:'🧠',bg:'#2a2340',desc:'怎么把 AI 当工具用好',
+   gh:[['Anthropic 文档','https://docs.anthropic.com'],['awesome-chatgpt-prompts','https://github.com/f/awesome-chatgpt-prompts']],
+   lessons:[
+     {id:'ai-1',lv:0,t:'提示词：怎么问 AI 才好用',d:'4个让回答质量翻倍的小习惯',status:'ready'},
+     {id:'ai-2',lv:1,t:'什么是 Agent / MCP',d:'让 AI 能"动手"而不只是聊天',status:'ready'},
+     {id:'ai-3',lv:2,t:'自己搭一个 AI 工作流',d:'把多步任务串成自动化',status:'soon'},
+   ]},
+  {id:'aicrypto',name:'AI × 加密',ico:'🔗',bg:'#1b2f3a',desc:'用 AI 看懂链上数据和项目',
+   gh:[['CCXT（交易所接口）','https://github.com/ccxt/ccxt'],['DefiLlama','https://defillama.com']],
+   lessons:[
+     {id:'ac-1',lv:0,t:'怎么用 AI 看懂一个币的基本面',d:'把白皮书/数据翻译成人话',status:'ready'},
+     {id:'ac-2',lv:1,t:'链上数据入门：地址在干嘛',d:'区块浏览器怎么读',status:'ready'},
+     {id:'ac-3',lv:2,t:'AI 辅助识别貔貅/骗局合约',d:'风险信号自动筛查',status:'soon'},
+   ]},
+  {id:'aifin',name:'AI × 金融',ico:'📊',bg:'#3a2030',desc:'用 AI 做投研、看财报、跑量化',
+   gh:[['OpenBB（开源金融终端）','https://github.com/OpenBB-finance/OpenBB'],['Backtrader（回测）','https://github.com/mementum/backtrader']],
+   lessons:[
+     {id:'af-1',lv:0,t:'5分钟看懂一家公司财报',d:'营收/利润/市盈率到底说什么',status:'ready'},
+     {id:'af-2',lv:1,t:'用 AI 做一次投资研究',d:'从一句话问题到结构化结论',status:'ready'},
+     {id:'af-3',lv:2,t:'30分钟跑出第一个量化策略',d:'选策略 → 真实回测 → 诚实体检',status:'ready'},
+   ]},
+];
+
+function renderHub(){
+  $('lvbar').innerHTML=[['全部',-1],['入门',0],['进阶',1],['专业',2]].map(([n,v])=>`<button class="lv ${v===curLv?'on':''}" onclick="setLv(${v})">${n}</button>`).join('');
+  $('cats').innerHTML=CAT.map(c=>{
+    const ls=c.lessons.filter(l=>curLv<0||l.lv===curLv);
+    if(!ls.length)return '';
+    return `<div class="cat">
+      <div class="cat-h"><div class="cat-ico" style="background:${c.bg}">${c.ico}</div><div><div class="cat-n">${c.name}</div><div class="cat-d">${c.desc}</div></div></div>
+      <div class="cards">${ls.map(l=>`
+        <div class="card ${l.status==='soon'?'soon':''}" ${l.status==='ready'?`onclick="openLesson('${l.id}')"`:''}>
+          <div class="card-top"><span class="lvtag t${l.lv}">${LV[l.lv]}</span></div>
+          <div class="card-t">${l.t}</div><div class="card-d">${l.d}</div>
+          <div class="card-s ${l.status==='ready'?'ready':''}">${l.status==='ready'?'▶ 开始学':'即将上线'}</div>
+        </div>`).join('')}</div>
+      <div class="gh">📦 相关开源资源：${c.gh.map(g=>`<a href="${g[1]}" target="_blank">${g[0]} ↗</a>`).join('')}</div>
+    </div>`;
+  }).join('');
+}
+function setLv(v){curLv=v;renderHub();}
+
+// ---------- 样板课：w3-1 ----------
+const LESSONS={
+ 'w3-1':{title:'钱包、链、代币到底是什么',meta:'Web3 基础 · 入门 · 约3分钟',
+  slides:[
+   {ico:'📒',h:'先记住一个比喻：区块链 = 一个全世界共享的大账本',b:'想象一个谁都能看、但<b>谁都改不了</b>的公共账本。每发生一笔转账，所有人手里的账本都同步记上一笔。\n\n没有银行做中间人，账本本身就是"权威"。这就是<b>区块链（链）</b>。'},
+   {ico:'🔑',h:'钱包 = 你在这个账本上的"钥匙"，不是存钱的盒子',b:'钱包里其实<b>不装钱</b>，钱一直记在账本上。钱包装的是<b>钥匙</b>：\n\n• <b>地址</b>：像银行卡号，可以公开给别人转账给你\n• <b>私钥</b>：像取款密码+签名，<b>绝对不能给任何人</b>\n\n用私钥"签名"，就能命令账本把你的钱转出去。',callout:'⚠️ 私钥/助记词泄露 = 钱被人转走，没有客服、没人能帮你找回。这是 Web3 和银行最大的不同。',warn:true},
+   {ico:'🪙',h:'代币 = 账本上记着的"你有多少"',b:'账本上记录的"资产"就是<b>代币（Token）</b>。比如：\n\n• <b>ETH</b>：以太坊这条链的"原生货币"\n• <b>USDT</b>：锚定 1 美元的稳定币\n• 各种项目币\n\n你的余额，本质就是账本上写着"这个地址有 X 个某代币"。'},
+   {ico:'⛽',h:'Gas 费 = 给"记账员"的手续费',b:'每次转账/操作，都要付一点<b>Gas 费</b>，付给维护账本、帮你打包记账的人（矿工/验证者）。\n\n账本越拥挤，大家抢着记账，Gas 就越贵 —— 这就是为什么有时转账几块钱、有时几百块。'},
+  ],
+  quiz:{q:'小测：下面哪个<b>绝对不能</b>发给别人？',opts:[['钱包地址',false],['私钥 / 助记词',true],['你持有的代币名称',false]],right:'对了！私钥/助记词等于你资产的最高权限，给了别人 = 把钱给了别人。地址则可以放心公开。'},
+  links:[['以太坊官方"学习"页','https://ethereum.org/zh/learn/'],['什么是钱包（MetaMask 文档）','https://support.metamask.io']]
+ },
+ 'w3-2':{title:'Gas 费为什么时高时低',meta:'Web3 基础 · 入门 · 约3分钟',
+  slides:[
+   {ico:'⛽',h:'Gas 费 = 你在链上做事的"手续费"',b:'在链上转账、买卖、铸造 NFT…… 任何操作都要付一点 <b>Gas 费</b>。\n\n这笔钱付给帮你<b>打包记账</b>的验证者（矿工）。没有它，没人帮你把这笔操作写进账本。'},
+   {ico:'🚗',h:'为什么叫 "Gas"（汽油）',b:'就像车要烧油才能跑，你的操作要"烧 Gas"才能被执行。\n\n操作<b>越复杂</b>烧得越多：简单转账便宜，调用一个复杂合约（比如 DeFi 兑换）就贵。'},
+   {ico:'📈',h:'为什么时高时低：看"堵不堵"',b:'费用 ≈ <b>操作复杂度 × 当前单价</b>。单价随<b>拥堵程度</b>浮动：\n\n• 大家都抢着上链（热门项目开抢、行情剧烈）→ 你得出更高价才被优先打包 → <b>贵</b>\n• 半夜没人用 → <b>便宜</b>\n\n本质是一场"谁出价高谁先记"的竞价。'},
+   {ico:'💡',h:'实用小贴士',b:'• 用 <b>Gas 追踪工具</b>看当前价，挑便宜时段操作\n• 不急的事，避开行情火爆的高峰\n• 不同链 Gas 差别大（以太坊主网贵，一些 L2 便宜很多）',callout:'记住：Gas 费和你转多少钱无关，只和"网络忙不忙、操作多复杂"有关。转 1 块和转 1 万，Gas 可能一样。'},
+  ],
+  quiz:{q:'小测：为什么有时候 Gas 费特别贵？',opts:[['因为你转的金额大',false],['因为网络拥堵，大家抢着记账',true],['因为币价涨了',false]],right:'对！Gas 贵主要是网络拥堵、大家竞价抢着被打包，和你转多少钱无关。'},
+  links:[['Etherscan Gas 追踪','https://etherscan.io/gastracker'],['Gas 是什么（ethereum.org）','https://ethereum.org/zh/developers/docs/gas/']]
+ },
+ 'ai-1':{title:'提示词：怎么问 AI 才好用',meta:'AI 基础 · 入门 · 约3分钟',
+  slides:[
+   {ico:'🎯',h:'第一招：给背景，别让 AI 猜',b:'不要只说"写个文案"。要说清楚：<b>给谁看、什么风格、多长、要达到什么目的</b>。\n\n❌ "写个减肥文案"\n✅ "给25岁上班族写一条小红书文案，口语化、150字、突出「不用饿肚子」"\n\nAI 不会读心，背景越清楚，结果越准。'},
+   {ico:'🧩',h:'第二招：给一个例子',b:'与其反复描述，不如直接给一个<b>你想要的样子</b>的例子，AI 模仿得又快又准。\n\n"照着这个风格再写3条：……"\n\n这叫"举例子"，是让 AI 对上你口味最快的办法。'},
+   {ico:'🪜',h:'第三招：复杂任务，让它一步步来',b:'任务一复杂，就让 AI <b>先列大纲、再展开</b>，或"一步一步思考"。\n\n"先帮我列一个提纲，我确认后你再写正文。"\n\n分步走能明显减少跑偏和遗漏。'},
+   {ico:'🔁',h:'第四招：不满意就具体地改',b:'别推倒重来。<b>具体指出哪不对</b>，让它改：\n\n"第二段太官方了，改口语一点""结尾加一句行动号召"。\n\n迭代比重新问省时间得多。',callout:'一句话总结：给背景 + 给例子 + 拆步骤 + 会迭代。这四个习惯，能让你和 AI 的对话质量翻好几倍。'},
+  ],
+  quiz:{q:'小测：下面哪个提示词更好？',opts:[['"帮我写个产品介绍"',false],['"给宝妈群体写一段奶瓶产品介绍，温暖口语化、120字、强调安全材质"',true]],right:'对！第二个给了对象、风格、长度、卖点，AI 一次就能写到点上。'},
+  links:[['Anthropic 提示词指南','https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview'],['awesome prompts','https://github.com/f/awesome-chatgpt-prompts']]
+ },
+ 'af-1':{title:'5分钟看懂一家公司财报',meta:'AI × 金融 · 入门 · 约3分钟',
+  slides:[
+   {ico:'💰',h:'营收：卖东西收到的总钱',b:'<b>营收</b>是公司卖产品/服务收到的总钱数，<b>还没扣成本</b>。\n\n注意：规模大 ≠ 赚钱。有的公司营收很高，但成本更高，其实在亏。'},
+   {ico:'📉',h:'净利润 & 净利率：真正进口袋的',b:'<b>净利润</b>＝扣完所有成本、税之后，真正赚到的钱。\n\n<b>净利率</b>＝净利润 ÷ 营收。比如净利率 30%，意味着每收 100 元，能留下 30 元。<b>越高，越会赚钱</b>。'},
+   {ico:'🏷️',h:'市盈率（PE）：贵还是便宜',b:'<b>市盈率</b>＝股价 ÷ 每股年利润，可理解为"多少年回本"。\n\nPE 高 = 市场对未来很乐观，但也意味着<b>买得贵、风险大</b>；PE 低可能是低估，也可能是没人看好。要结合增速一起看。'},
+   {ico:'🤖',h:'用 AI 帮你 5 分钟读完',b:'把一份财报（或财报新闻）丢给 AI：\n\n"用3句话讲清这家公司这个季度好不好、最大亮点和最大风险是什么。"\n\nAI 帮你把一堆数字翻译成人话，你再去核对关键指标。',callout:'学习用途，不构成投资建议。AI 能帮你理解，但不能替你判断该不该买。'},
+  ],
+  quiz:{q:'小测：净利率高说明什么？',opts:[['公司卖得多',false],['公司每收一块钱，能留下更多利润，更会赚钱',true],['公司股价会涨',false]],right:'对！净利率衡量"赚钱效率"，越高说明把营收变成利润的能力越强。'},
+  links:[['OpenBB 开源金融终端','https://github.com/OpenBB-finance/OpenBB'],['SEC 官方财报查询','https://www.sec.gov/edgar']]
+ },
+ 'ac-1':{title:'怎么用 AI 看懂一个币的基本面',meta:'AI × 加密 · 入门 · 约3分钟',
+  slides:[
+   {ico:'🔍',h:'先问自己 4 个问题',b:'看任何一个币，先搞清楚：\n\n1. 它<b>干嘛用的</b>？解决什么真问题？\n2. <b>谁在做</b>？团队是否公开、靠谱？\n3. <b>有多少</b>？流通量 / 总量是多少？\n4. <b>凭什么值钱</b>？价值来源是什么？\n\n答不上来，就是看不懂 —— 看不懂就别碰。'},
+   {ico:'📄',h:'白皮书太长？让 AI 嚼碎',b:'把项目的白皮书或官网介绍丢给 AI：\n\n"用3句话说清：这个项目解决什么问题、怎么赚钱/有什么价值、最大的风险是什么。"\n\nAI 帮你把营销话术翻译成大白话。'},
+   {ico:'📊',h:'看几个关键数据',b:'• <b>市值</b>：总盘子多大\n• <b>流通/总量</b>：是不是大量代币还没释放（未来可能砸盘）\n• <b>持币集中度</b>：如果<b>少数几个地址</b>拿着大部分币 → 风险高，可能被操纵。'},
+   {ico:'⚠️',h:'最重要的一课：诚实',b:'• 绝大多数币<b>最终会归零</b>\n• AI 能帮你<b>理解</b>，但<b>不能预测涨跌</b>\n• 别投你不懂的、别 All in、别借钱买',callout:'加密资产风险极高，本课纯科普，不构成任何投资建议。看懂 ≠ 该买。',warn:true},
+  ],
+  quiz:{q:'小测：少数几个地址持有了大部分代币，意味着？',opts:[['项目很受欢迎',false],['风险高，可能被少数人操纵或集中砸盘',true],['代币很稀有，会涨',false]],right:'对！持币高度集中是典型风险信号，少数人就能左右价格。'},
+  links:[['DefiLlama（项目数据）','https://defillama.com'],['CoinGecko（行情/数据）','https://www.coingecko.com']]
+ },
+ 'w3-3':{title:'DeFi 是怎么"无银行"借贷的',meta:'Web3 基础 · 进阶 · 约3分钟',
+  slides:[
+   {ico:'🏦',h:'先对比：银行借贷 vs DeFi',b:'传统借贷里，<b>银行</b>是中间人：审核你信用、撮合资金、做担保。\n\nDeFi（去中心化金融）把银行换成一段<b>公开透明的代码</b>（智能合约），规则写死、自动执行，没有公司、没有柜台。'},
+   {ico:'💧',h:'核心：资金池',b:'很多人把币<b>存进一个公共"资金池"</b>，需要借的人从池子里借，存的人赚利息。\n\n利率由"池子里钱多不多、借的人多不多"自动决定。<b>池子 + 代码，就替代了银行</b>。'},
+   {ico:'🔒',h:'为什么要"超额抵押"',b:'没人审核你的信用，怎么保证你还得起？答案：<b>先押更多</b>。\n\n比如想借价值 $100 的币，你得先抵押 $150 的币。一旦你的抵押物跌破警戒线，就会被<b>自动清算（强制卖出）</b>来还债。'},
+   {ico:'⚠️',h:'风险，必须知道',b:'• <b>合约漏洞</b>被黑客掏空\n• 抵押物暴跌被<b>清算</b>，损失惨重\n• 稳定币<b>脱锚</b>（不再值 1 美元）\n• 高得离谱的收益率往往<b>不可持续</b>',callout:'记住：DeFi 没有客服、没有兜底。代码出错或被黑，钱可能瞬间没。高收益 = 高风险。',warn:true},
+  ],
+  quiz:{q:'小测：DeFi 借钱为什么要"超额抵押"？',opts:[['为了多赚利息',false],['因为没有信用审核，用更多抵押物保证能还上',true],['因为法律规定',false]],right:'对！没有中心机构审核信用，就用"押得比借得多"来保证系统不亏钱。'},
+  links:[['DefiLlama（DeFi 数据）','https://defillama.com'],['什么是 DeFi（ethereum.org）','https://ethereum.org/zh/defi/']]
+ },
+ 'ai-2':{title:'什么是 Agent / MCP',meta:'AI 基础 · 进阶 · 约3分钟',
+  slides:[
+   {ico:'🤖',h:'从"会聊天"到"会做事"',b:'普通聊天 AI 只能给你<b>文字</b>。\n\n<b>Agent（智能体）</b>是能<b>真的动手</b>的 AI：帮你查资料、运行代码、读写文件、调用别的软件，去<b>完成任务</b>，而不只是回答。'},
+   {ico:'🔧',h:'Agent 的能力来自"工具"',b:'Agent 之所以能做事，是因为你给了它<b>工具</b>：搜索、执行代码、访问数据库、调用 API……\n\n<b>有什么工具，它就能做什么事</b>。没有工具，它又退回成只会聊天。'},
+   {ico:'🔌',h:'MCP 是什么',b:'<b>MCP</b>（Model Context Protocol）是一个"<b>标准插头</b>"。\n\n以前每接一个新工具都要单独定制；有了 MCP，AI 能用<b>统一的方式</b>连接各种外部工具和数据（GitHub、数据库、你的 App），像 USB 一样即插即用。'},
+   {ico:'💡',h:'对你意味着什么',b:'你可以把 AI <b>接到你常用的东西上</b>，让它代你操作：读你的文件、查你的数据、帮你下单（在你授权下）。\n\nAI 从"聊天框"变成"能帮你干活的助手"。',callout:'你正在用的 Claude 就支持 MCP —— 这也是为什么它能连 GitHub、连各种工具帮你做事。'},
+  ],
+  quiz:{q:'小测：Agent 和普通聊天 AI 最大的区别是？',opts:[['Agent 回答更长',false],['Agent 能调用工具、真的去执行任务',true],['Agent 更便宜',false]],right:'对！关键在"能动手"——通过工具真正完成任务，而不只是输出文字。'},
+  links:[['MCP 官方介绍','https://modelcontextprotocol.io'],['Anthropic 文档','https://docs.anthropic.com']]
+ },
+ 'ac-2':{title:'链上数据入门：地址在干嘛',meta:'AI × 加密 · 进阶 · 约3分钟',
+  slides:[
+   {ico:'🔎',h:'区块浏览器 = 链上的"天眼查"',b:'输入一个地址或交易号，就能看到它<b>所有公开记录</b>：余额、转账历史、交互过的合约。\n\n最常用的是 <b>Etherscan</b>（以太坊）。链上数据<b>完全公开</b>，谁都能查。'},
+   {ico:'📜',h:'一笔交易能看出什么',b:'点开任意一笔交易，能看到：\n\n• 谁转给谁、转了多少、什么代币\n• 付了多少 Gas、什么时间\n• 调用了哪个合约\n\n一切透明、不可篡改、永久记录。'},
+   {ico:'🐋',h:'看"巨鲸"和资金流向',b:'<b>巨鲸</b>（持有大量币的地址）的动向常被密切关注。\n\n比如大量币<b>从交易所转出</b>，常被解读为"有人想长期持有"；大量<b>转入交易所</b>可能是准备卖出。资金流能反映市场情绪。'},
+   {ico:'🤖',h:'用 AI 帮你读',b:'把一串链上记录或地址标签丢给 AI：\n\n"总结这个地址最近在干嘛、有没有异常大额操作。"\n\nAI 帮你把一堆哈希值翻译成人话。',callout:'诚实提醒：链上能看到"行为"，但通常看不到"背后是谁"。地址是匿名的，别凭一笔转账就下结论。'},
+  ],
+  quiz:{q:'小测：区块浏览器能让你看到什么？',opts:[['某个地址的真实姓名',false],['任意地址的公开余额和全部交易历史',true],['别人的私钥',false]],right:'对！链上数据全公开——余额、转账都能查；但地址是匿名的，看不到背后真实身份，更不可能看到私钥。'},
+  links:[['Etherscan','https://etherscan.io'],['DefiLlama','https://defillama.com']]
+ },
+ 'af-2':{title:'用 AI 做一次投资研究',meta:'AI × 金融 · 进阶 · 约3分钟',
+  slides:[
+   {ico:'🎯',h:'第一步：把问题问对',b:'别问"这股能不能买"——这是让 AI 替你赌博。\n\n要问<b>能拆解的问题</b>：这家公司<b>靠什么赚钱</b>？<b>增长从哪来</b>？<b>最大风险</b>是什么？\n\n好问题，才有好研究。'},
+   {ico:'🧱',h:'第二步：让 AI 按结构来',b:'让 AI 套一个固定框架，别一锅炖：\n\n业务模式 → 财务健康 → 行业地位 → 风险 → 估值\n\n"按这五块，逐块分析这家公司。"结构化的研究才看得清。'},
+   {ico:'🔁',h:'第三步：交叉验证（关键）',b:'AI 会<b>编数据</b>（幻觉）！\n\n它给的关键数字——营收、利润、市盈率——<b>一定要去财报或官方源核对</b>，别全信。把 AI 当"研究助理"，不是"权威数据库"。'},
+   {ico:'📝',h:'第四步：输出 + 你来判断',b:'让 AI 收尾："给我<b>三句话投资逻辑</b> + <b>三个最大风险</b>。"\n\n最终买不买，是<b>你</b>的判断，不是 AI 的。',callout:'AI 是研究加速器，不是预言家。本课为学习用途，不构成任何投资建议。'},
+  ],
+  quiz:{q:'小测：用 AI 做投研，最该当心什么？',opts:[['它算得太慢',false],['它可能编造数据（幻觉），关键数字要去官方源核对',true],['它不会用框架',false]],right:'对！AI 会一本正经地编数字，关键数据务必回到财报/官方源核实。'},
+  links:[['OpenBB 开源金融终端','https://github.com/OpenBB-finance/OpenBB'],['SEC 官方财报','https://www.sec.gov/edgar']]
+ },
+ 'af-3':{title:'30分钟跑出第一个量化策略',meta:'AI × 金融 · 专业 · 约4分钟 + 动手',
+  slides:[
+   {ico:'🤖',h:'量化 = 把"买卖规则"交给代码自动判断',b:'你心里其实有规则："跌多了就买、涨够了就卖"。<b>量化</b>就是把这种规则写成代码，让它<b>自动</b>盯盘、自动决策，不靠情绪。'},
+   {ico:'🧪',h:'回测 = 拿历史数据"先跑一遍"',b:'在真投钱之前，先用<b>过去的真实行情</b>把策略跑一遍，看它当年表现如何 —— 这叫<b>回测</b>。\n\n能看到：收益率、最大回撤（中途最惨亏多少）、夏普（赚得稳不稳）。'},
+   {ico:'📉',h:'最重要的一课：回测好看 ≠ 能赚钱',b:'新手最容易在这里翻车：调几个参数让历史曲线很漂亮，叫<b>过拟合</b>（刚好蒙对了过去）。\n\n判断方法：<b>换个股票、换段时间再跑</b>，如果结果差很多，说明策略不稳、是运气。',callout:'真实交易还有手续费、滑点、情绪、突发事件。回测是"练习场"，不是"印钞机"。',warn:true},
+   {ico:'🚀',h:'下面就去亲手跑一个',b:'右边的实操会打开「Quant Lab」—— 不用写代码、不用装任何东西：\n\n选个策略 → 拖滑块调参数 → 一键回测 → 看收益曲线和诚实体检。\n\n<b>跑出你的第一条曲线，体会一下"我跑出来了"的感觉。</b>'},
+  ],
+  quiz:{q:'小测：回测收益很漂亮，能说明这策略实盘也能赚钱吗？',opts:[['能，数据不会骗人',false],['不能，可能是过拟合，要换标的/时间再验证',true],['能，只要夏普高',false]],right:'对！回测好看只代表"过去这一段"，必须换条件再验证，还要算上手续费滑点。'},
+  links:[['打开 Quant Lab 亲手跑','https://benjaminjason.github.io/quant-lab/'],['Backtrader（开源回测引擎）','https://github.com/mementum/backtrader']]
+ }
+};
+
+const PRACTICE={
+ 'w3-1':{intro:'生成一个真正的「演示钱包」，亲眼看看地址、私钥、助记词长什么样。',
+  html:`<button onclick="genWallet()">🎲 生成一个演示钱包</button>
+   <div id="wout" style="display:none">
+     <div class="pout">
+       <div style="color:var(--tx2);font-size:12px">📬 地址（可公开，别人用它转钱给你）</div><div class="mono" id="wAddr"></div>
+       <div style="color:var(--tx2);font-size:12px;margin-top:8px">🔑 私钥（绝对保密！）</div><div class="mono" id="wKey"></div>
+       <div style="color:var(--tx2);font-size:12px;margin-top:8px">📝 助记词（=私钥的另一种形式，同样保密）</div><div class="mono" id="wMnem"></div>
+     </div>
+     <div class="callout warn" style="margin-top:10px">⚠️ 这是用来"看一眼"的演示钱包，<b>千万不要往里转任何真钱</b>。看完就关掉。真实世界里，谁拿到上面的私钥/助记词，就能拿走里面所有资产。</div>
+   </div>`,
+  init(){window.genWallet=()=>{try{const w=ethers.Wallet.createRandom();$('wAddr').textContent=w.address;$('wKey').textContent=w.privateKey;$('wMnem').textContent=w.mnemonic.phrase;$('wout').style.display='block';}catch(e){alert('生成失败（ethers 未加载）');}};}},
+
+ 'w3-2':{intro:'拖动滑块，直观感受 Gas 费是怎么随「拥堵」和「操作复杂度」变化的。',
+  html:`<div class="pf"><label>网络拥堵程度：<span id="gC">中</span></label><input type="range" id="gCong" min="5" max="200" value="40"></div>
+   <div class="pf"><label>操作类型</label><select id="gOp"><option value="21000">普通转账（最简单）</option><option value="65000">代币转账</option><option value="150000">DeFi 兑换（较复杂）</option><option value="250000">NFT 铸造（更复杂）</option></select></div>
+   <div class="pout">预计花费 <span class="big" id="gFee" style="color:var(--ac)">—</span> <span style="color:var(--tx3);font-size:12px">（按 ETH≈$3000 估算，仅示意）</span></div>`,
+  init(){const calc=()=>{const units=+$('gOp').value,gwei=+$('gCong').value;const eth=units*gwei*1e-9;$('gFee').textContent='$'+(eth*3000).toFixed(2);$('gC').textContent=gwei<20?'空闲':gwei<60?'中':gwei<120?'繁忙':'极度拥堵';};$('gCong').oninput=calc;$('gOp').onchange=calc;calc();}},
+
+ 'w3-3':{intro:'模拟一次抵押借贷：拖动「抵押物价格变化」，看看什么时候你会被强制清算。',
+  html:`<div style="font-size:12px;color:var(--tx3);margin-bottom:8px">你抵押了 $1500 的币，借出了 $1000。清算线：抵押物价值跌到借款的 110%（即 $1100）以下。</div>
+   <div class="pf"><label>抵押物价格变化：<span id="lcP">0%</span></label><input type="range" id="lChg" min="-60" max="20" value="0"></div>
+   <div class="pout" id="lOut"></div>`,
+  init(){const calc=()=>{const chg=+$('lChg').value;$('lcP').textContent=(chg>=0?'+':'')+chg+'%';const val=1500*(1+chg/100);const health=val/1000;let s;if(val<1100)s=`<span class="big" style="color:var(--dn)">💥 已被清算！</span><br><span style="font-size:12px;color:var(--tx2)">抵押物现值 $${val.toFixed(0)}，跌破 $1100 清算线，系统强制卖出你的抵押物来还债，你亏了。</span>`;else s=`<span class="big" style="color:var(--up)">✅ 安全</span><br><span style="font-size:12px;color:var(--tx2)">抵押物现值 $${val.toFixed(0)}，健康度 ${health.toFixed(2)}。再跌到 $1100 以下就会被清算。</span>`;$('lOut').innerHTML=s;};$('lChg').oninput=calc;calc();}},
+
+ 'ac-1':{intro:'查一个真实的币：实时市值、供应量、24h 涨跌（数据来自 CoinGecko，免费、无需 Key）。',
+  html:`<div class="prow"><input id="coinId" value="bitcoin" style="flex:1;min-width:140px" placeholder="bitcoin / ethereum / solana"><button onclick="lookCoin()">查一下</button></div>
+   <div class="pout" id="coinOut" style="display:none"></div>`,
+  init(){window.lookCoin=async()=>{const id=$('coinId').value.trim().toLowerCase();if(!id)return;const o=$('coinOut');o.style.display='block';o.textContent='查询中…';try{const r=await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${encodeURIComponent(id)}`);const j=await r.json();if(!j.length)throw new Error('没找到，试试 bitcoin / ethereum / solana');const c=j[0];const ch=c.price_change_percentage_24h||0;o.innerHTML=`<div class="prow" style="align-items:center;gap:10px"><img src="${c.image}" style="width:32px;height:32px"><div><b style="font-size:15px">${c.name}</b> <span style="color:var(--tx3)">${c.symbol.toUpperCase()}</span></div></div>
+   <div style="margin-top:10px">💲 现价：<b>$${c.current_price.toLocaleString()}</b> <span style="color:${ch>=0?'var(--up)':'var(--dn)'}">${ch>=0?'▲':'▼'} ${Math.abs(ch).toFixed(1)}% (24h)</span></div>
+   <div>🏦 市值：<b>$${(c.market_cap/1e8).toFixed(0)} 亿</b>（全球排名第 ${c.market_cap_rank}）</div>
+   <div>🪙 流通量：${(c.circulating_supply/1e6).toFixed(1)}M ${c.total_supply?`/ 总量 ${(c.total_supply/1e6).toFixed(1)}M`:'（无上限）'}</div>
+   <div style="font-size:11px;color:var(--tx3);margin-top:8px">想想：市值排名说明什么？流通量接近总量 vs 还有大量没释放，风险一样吗？</div>`;}catch(e){o.textContent='查询失败：'+e.message;}};}}
+ ,'ai-1':{intro:'看一个"烂提示词"怎么一步步变好——选一个试试。',
+  html:`<select id="ppick"><option value="0">"写个文案"</option><option value="1">"帮我写封邮件"</option><option value="2">"讲讲 AI"</option></select><div class="pout" id="ppout"></div>`,
+  init(){const D=[{good:'给【25岁上班族】写一条【小红书】带货文案，【口语化】、【150字以内】、突出【帮你省时间】。',add:'加了：对象 + 平台 + 风格 + 长度 + 卖点'},{good:'帮我给【合作客户】写一封【为延期道歉】的邮件，【正式礼貌】、【200字】，说明【延迟原因】并给出【补偿方案】。',add:'加了：收件人 + 目的 + 语气 + 长度 + 必含内容'},{good:'用【小学生能听懂】的话，配【3个生活比喻】解释【什么是 AI】，每个比喻不超过【50字】。',add:'加了：受众 + 形式 + 数量 + 长度限制'}];const r=()=>{const d=D[+$('ppick').value];$('ppout').innerHTML=`<div style="color:var(--dn);font-size:12px">❌ 太模糊，AI 只能瞎猜</div><div style="color:var(--up);font-size:12px;margin-top:8px">✅ 改造后：</div><div style="margin-top:4px">${d.good}</div><div style="font-size:11px;color:var(--tx3);margin-top:8px">${d.add}</div>`;};$('ppick').onchange=r;r();}}
+ ,'ac-2':{intro:'查一个真实地址的链上记录（用以太坊创始人 Vitalik 的公开地址做示范）。',
+  html:`<div class="prow"><input id="addr" value="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" style="flex:1;min-width:160px"><button onclick="openAddr()">在 Etherscan 查看 ↗</button></div><div class="pout" style="margin-top:10px">打开后看看：这个地址的<b>余额</b>、<b>最近交易</b>、持有哪些代币。全部公开、永久、改不了。<br><span style="font-size:11px;color:var(--tx3)">换成任意地址都能查——这就是"链上透明"。</span></div>`,
+  init(){window.openAddr=()=>{const a=$('addr').value.trim();if(a)window.open('https://etherscan.io/address/'+a,'_blank');};}}
+ ,'af-1':{intro:'光看不练没用 —— 打开「实时财报仪表盘」，亲手查一家真公司（这是本站作者做的工具，数据实时）。',
+  html:`<a href="https://benjaminjason.github.io/market-earnings-dashboard/" target="_blank"><button>🔗 打开实时财报仪表盘</button></a><div class="pout" style="margin-top:10px"><b>小任务：</b>打开后选「科技」板块，找出<b>净利润率最高</b>的公司，再想想为什么是它（提示：卖软件/芯片 vs 卖硬件）。</div>`,
+  init(){}}
+ ,'af-2':{intro:'输入一家公司，自动生成一段可直接粘给 AI 的"结构化投研提示词"。',
+  html:`<div class="prow"><input id="coName" value="苹果" style="flex:1;min-width:140px"><button onclick="genResearch()">生成提示词</button></div><div class="pout" id="rout" style="display:none"><div id="rtext" style="white-space:pre-wrap;font-size:12.5px"></div><button class="ghost" style="margin-top:8px" onclick="copyR()">📋 复制</button></div>`,
+  init(){window.genResearch=()=>{const n=$('coName').value.trim()||'这家公司';$('rtext').textContent=`请帮我研究「${n}」，按以下五块分析，每块3-4句：\n1. 业务模式：靠什么赚钱？\n2. 财务健康：营收/利润/现金流趋势（关键数字我会自己去财报核对）\n3. 行业地位：竞争对手是谁、护城河是什么\n4. 主要风险：最大的3个风险\n5. 估值：现在贵还是便宜、为什么\n最后给我"一句话投资逻辑 + 三个最大风险"。提醒：不确定的数据请标注，不要编造。`;$('rout').style.display='block';};window.copyR=()=>{navigator.clipboard&&navigator.clipboard.writeText($('rtext').textContent);};}}
+ ,'af-3':{intro:'去「Quant Lab」亲手跑一个量化策略（本站作者做的工具，浏览器内真实回测，不用装任何东西）。',
+  html:`<a href="https://benjaminjason.github.io/quant-lab/" target="_blank"><button>🚀 打开 Quant Lab 跑回测</button></a><div class="pout" style="margin-top:10px"><b>小任务：</b>选「跌买涨卖」策略，把"跌多少买入"从 5% 改成 10% 再跑一次，看收益和回撤怎么变 —— 体会"换个参数结果就不同"=为什么不能轻信单次回测。</div>`,
+  init(){}}
+};
+
+let curId=null,curSlide=0;
+function openLesson(id){
+  curId=id;curSlide=0;
+  $('hub').style.display='none';$('lesson').style.display='block';
+  location.hash='#/lesson/'+id;
+  renderLesson();window.scrollTo(0,0);
+}
+function backHub(){location.hash='';$('lesson').style.display='none';$('hub').style.display='block';}
+
+function renderLesson(){
+  const L=LESSONS[curId];
+  if(!L){$('lesson').innerHTML='<div class="back" onclick="backHub()">← 返回</div><p style="color:var(--tx3)">这节课还没做好。</p>';return;}
+  const md=t=>marked.parseInline?marked.parseInline(t):t;
+  $('lesson').innerHTML=`
+   <div class="back" onclick="backHub()">← 返回学习区</div>
+   <div class="lcard">
+     <div class="lh">${L.title}</div><div class="lmeta">${L.meta}</div>
+     ${L.slides.map((s,i)=>`<div class="slide ${i===0?'on':''}" data-i="${i}">
+        <div class="slide-ico">${s.ico}</div><div class="slide-h">${s.h}</div>
+        <div class="slide-b">${s.b.replace(/\n/g,'<br>')}</div>
+        ${s.callout?`<div class="callout ${s.warn?'warn':''}">${s.callout}</div>`:''}
+     </div>`).join('')}
+     <div class="nav">
+       <button class="ghost" id="prev" onclick="move(-1)">上一步</button>
+       <div class="dots">${L.slides.map((_,i)=>`<span class="dot ${i===0?'on':''}" data-d="${i}"></span>`).join('')}</div>
+       <button id="next" onclick="move(1)">下一步</button>
+     </div>
+   </div>
+   ${PRACTICE[curId]?`<div class="lcard"><div class="slide-h">🛠️ 动手实操</div><div class="prac-intro">${PRACTICE[curId].intro}</div>${PRACTICE[curId].html}</div>`:''}
+   <div class="lcard" id="quizCard" style="display:none">
+     <div class="slide-h">${L.quiz.q}</div>
+     <div class="quiz" id="quiz">${L.quiz.opts.map((o,i)=>`<button class="qopt" data-i="${i}" onclick="answer(${i})">${o[0]}</button>`).join('')}</div>
+     <div class="ans" id="quizAns" style="display:none">${L.quiz.right}</div>
+     <details class="assist">
+       <summary>🤖 还有疑问？问 AI 助教（需免费 Gemini Key，可选）</summary>
+       <div style="margin-top:8px;display:flex;flex-direction:column;gap:7px">
+         <input id="gkey" placeholder="Gemini Key（aistudio.google.com 免费）" value="${GKEY?'已保存':''}">
+         <input id="q" placeholder="比如：助记词丢了能找回吗？">
+         <button onclick="ask()" style="align-self:flex-start">问一下</button>
+       </div>
+       <div class="ans" id="aiAns" style="display:none"></div>
+     </details>
+     <div class="gh" style="margin-top:14px">📦 想深入：${L.links.map(l=>`<a href="${l[1]}" target="_blank">${l[0]} ↗</a>`).join(' · ')}</div>
+   </div>`;
+  updateNav();
+  if(PRACTICE[curId]&&PRACTICE[curId].init)try{PRACTICE[curId].init();}catch(e){}
+}
+function move(d){
+  const L=LESSONS[curId];
+  curSlide=Math.max(0,Math.min(L.slides.length-1,curSlide+d));
+  document.querySelectorAll('.slide').forEach(s=>s.classList.toggle('on',+s.dataset.i===curSlide));
+  document.querySelectorAll('.dot').forEach(s=>s.classList.toggle('on',+s.dataset.d===curSlide));
+  updateNav();
+}
+function updateNav(){
+  const L=LESSONS[curId];
+  $('prev').disabled=curSlide===0;
+  const last=curSlide===L.slides.length-1;
+  $('next').textContent=last?'完成 ✓ 做个小测':'下一步';
+  if(last)$('next').onclick=()=>{$('quizCard').style.display='block';$('quizCard').scrollIntoView({behavior:'smooth'});};
+  else $('next').onclick=()=>move(1);
+}
+function answer(i){
+  const L=LESSONS[curId];
+  document.querySelectorAll('.qopt').forEach((b,j)=>{
+    b.disabled=true;
+    if(L.quiz.opts[j][1])b.classList.add('right');
+    else if(j===i)b.classList.add('wrong');
+  });
+  $('quizAns').style.display='block';
+}
+async function ask(){
+  const g=$('gkey').value.trim();if(g&&g!=='已保存'){GKEY=g;localStorage.setItem('gm_key',g);}
+  const q=$('q').value.trim();if(!q)return;
+  if(!GKEY){$('aiAns').style.display='block';$('aiAns').textContent='请先填 Gemini Key';return;}
+  $('aiAns').style.display='block';$('aiAns').textContent='AI 思考中…';
+  try{
+    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GKEY}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:`你是面向完全小白的 Web3 科普助教，用简单中文回答，别超过150字，涉及风险要诚实提醒。问题：${q}`}]}]})});
+    const j=await r.json();if(j.error)throw new Error(j.error.message);
+    $('aiAns').textContent=j.candidates[0].content.parts[0].text.trim();
+  }catch(e){$('aiAns').textContent='出错：'+e.message;}
+}
+
+window.onhashchange=()=>{const m=location.hash.match(/#\/lesson\/(.+)/);if(m&&LESSONS[m[1]]){openLesson(m[1]);}else backHub();};
+renderHub();
+const m=location.hash.match(/#\/lesson\/(.+)/);if(m&&LESSONS[m[1]])openLesson(m[1]);
+</script>
+</body>
+</html>
