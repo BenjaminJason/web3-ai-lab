@@ -108,21 +108,21 @@ const CAT=[
      {id:'w3-1',lv:0,t:'钱包、链、代币到底是什么',d:'3分钟，用大白话拆开最基本的3个词',status:'ready'},
      {id:'w3-2',lv:0,t:'Gas 费为什么时高时低',d:'为什么转个账有时几块、有时几百',status:'ready'},
      {id:'w3-3',lv:1,t:'DeFi 是怎么"无银行"借贷的',d:'去中心化金融的核心机制',status:'ready'},
-     {id:'w3-4',lv:2,t:'读懂一份智能合约的安全风险',d:'常见漏洞与审计要点',status:'soon'},
+     {id:'w3-4',lv:2,t:'读懂一份智能合约的安全风险',d:'常见漏洞与审计要点',status:'ready'},
    ]},
   {id:'ai',name:'AI 基础',ico:'🧠',bg:'#2a2340',desc:'怎么把 AI 当工具用好',
    gh:[['Anthropic 文档','https://docs.anthropic.com'],['awesome-chatgpt-prompts','https://github.com/f/awesome-chatgpt-prompts']],
    lessons:[
      {id:'ai-1',lv:0,t:'提示词：怎么问 AI 才好用',d:'4个让回答质量翻倍的小习惯',status:'ready'},
      {id:'ai-2',lv:1,t:'什么是 Agent / MCP',d:'让 AI 能"动手"而不只是聊天',status:'ready'},
-     {id:'ai-3',lv:2,t:'自己搭一个 AI 工作流',d:'把多步任务串成自动化',status:'soon'},
+     {id:'ai-3',lv:2,t:'自己搭一个 AI 工作流',d:'把多步任务串成自动化',status:'ready'},
    ]},
   {id:'aicrypto',name:'AI × 加密',ico:'🔗',bg:'#1b2f3a',desc:'用 AI 看懂链上数据和项目',
    gh:[['CCXT（交易所接口）','https://github.com/ccxt/ccxt'],['DefiLlama','https://defillama.com']],
    lessons:[
      {id:'ac-1',lv:0,t:'怎么用 AI 看懂一个币的基本面',d:'把白皮书/数据翻译成人话',status:'ready'},
      {id:'ac-2',lv:1,t:'链上数据入门：地址在干嘛',d:'区块浏览器怎么读',status:'ready'},
-     {id:'ac-3',lv:2,t:'AI 辅助识别貔貅/骗局合约',d:'风险信号自动筛查',status:'soon'},
+     {id:'ac-3',lv:2,t:'AI 辅助识别貔貅/骗局合约',d:'风险信号自动筛查',status:'ready'},
    ]},
   {id:'aifin',name:'AI × 金融',ico:'📊',bg:'#3a2030',desc:'用 AI 做投研、看财报、跑量化',
    gh:[['OpenBB（开源金融终端）','https://github.com/OpenBB-finance/OpenBB'],['Backtrader（回测）','https://github.com/mementum/backtrader']],
@@ -253,6 +253,36 @@ const LESSONS={
   ],
   quiz:{q:'小测：回测收益很漂亮，能说明这策略实盘也能赚钱吗？',opts:[['能，数据不会骗人',false],['不能，可能是过拟合，要换标的/时间再验证',true],['能，只要夏普高',false]],right:'对！回测好看只代表"过去这一段"，必须换条件再验证，还要算上手续费滑点。'},
   links:[['打开 Quant Lab 亲手跑','https://benjaminjason.github.io/quant-lab/'],['Backtrader（开源回测引擎）','https://github.com/mementum/backtrader']]
+ },
+ 'w3-4':{title:'读懂一份智能合约的安全风险',meta:'Web3 基础 · 专业 · 约4分钟',
+  slides:[
+   {ico:'📜',h:'智能合约 = 链上自动执行、且改不了的代码',b:'合约就是一段跑在链上的代码，钱<b>完全按代码走</b>。一旦上链，<b>基本不能修改</b>。\n\n所以代码有 bug，钱就有 bug，而且<b>没有客服、不能回滚</b>。这是为什么安全在 Web3 里是头等大事。'},
+   {ico:'🐞',h:'最常见的几类雷区（知道名字就行）',b:'• <b>重入攻击</b>：黑客反复"提款"把池子掏空\n• <b>权限失控</b>：谁都能调用本该只有管理员能用的功能\n• <b>预言机操纵</b>：喂给合约的价格被人做假\n• <b>无限增发</b>：管理员能凭空造币砸盘\n\n不用懂细节，记住"这些是历史上被黑最多的地方"。'},
+   {ico:'✅',h:'普通人能做的 4 个检查',b:'1. 有没有<b>知名机构的审计报告</b>？\n2. 合约是否<b>开源并已验证</b>（verified）？看不到源码=危险\n3. <b>管理员权限</b>多大？能不能随意增发/暂停/抽走资金（=rug 风险）\n4. 资金/流动性是否<b>锁定</b>？'},
+   {ico:'⚠️',h:'底线',b:'• <b>没审计的别碰</b>\n• <b>管理员权限过大的别碰</b>\n• <b>读不懂，就当它有风险</b>',callout:'诚实提醒：审计 ≠ 绝对安全，被审计过的合约照样被黑过。审计只是降低风险，不是保险箱。',warn:true},
+  ],
+  quiz:{q:'小测：智能合约上链后发现漏洞，能像 App 那样打补丁修复吗？',opts:[['能，随时更新',false],['一般不能，代码不可改——所以上线前审计极其重要',true],['能，但要交手续费',false]],right:'对！合约不可改是把双刃剑：可信，但也意味着 bug 改不了，钱可能直接没。'},
+  links:[['以太坊安全最佳实践','https://ethereum.org/zh/developers/docs/smart-contracts/security/'],['CertiK（审计/安全）','https://www.certik.com']]
+ },
+ 'ai-3':{title:'自己搭一个 AI 工作流',meta:'AI 基础 · 专业 · 约4分钟',
+  slides:[
+   {ico:'🧩',h:'工作流 = 把大任务拆成"AI 接力的小步骤"',b:'与其让 AI 一口气干完一件复杂事，不如<b>拆成几步、一步步来</b>。\n\n比如"写周报"：① 列要点 → ② AI 汇总 → ③ AI 润色 → ④ 套格式。每步只干一件事，质量更稳。'},
+   {ico:'🔗',h:'串起来的关键：上一步输出 = 下一步输入',b:'把<b>前一步的结果</b>带进下一步的提示词里：\n\n"这是上一步整理的要点：[…]，请基于它写一段200字的总结。"\n\n这样信息一步步往下传，不会断。'},
+   {ico:'🤖',h:'简单手动串，复杂交给 Agent',b:'• 步骤少：你自己在对话里一步步喂\n• 步骤多 / 要抓数据：让 <b>Agent</b>（能调工具的 AI）自动跑：抓数据 → 分析 → 产出\n\n开源的自动化工具（如 n8n）也能把这些步骤可视化串起来。'},
+   {ico:'💡',h:'从你的"每周重复劳动"开始',b:'找一件你<b>每周都做、步骤又固定</b>的事（整理资料、写复盘、回固定邮件…），把它拆成工作流。\n\n<b>越重复、越固定的事，越值得自动化。</b>',callout:'诀窍：先用手动工作流跑通，确认每步靠谱了，再考虑自动化。别一上来就追求全自动。'},
+  ],
+  quiz:{q:'小测：AI 工作流的核心思路是？',opts:[['让 AI 一次把所有事做完',false],['把大任务拆成小步骤，上一步的输出喂给下一步',true],['用最贵的模型',false]],right:'对！拆步骤 + 串接力，是让复杂任务稳定产出的关键。'},
+  links:[['Anthropic：构建 Agent','https://docs.anthropic.com'],['n8n（开源自动化）','https://github.com/n8n-io/n8n']]
+ },
+ 'ac-3':{title:'AI 辅助识别貔貅/骗局合约',meta:'AI × 加密 · 专业 · 约4分钟',
+  slides:[
+   {ico:'🐷',h:'什么是"貔貅盘"',b:'貔貅盘 = <b>能买、不能卖</b>的骗局合约。\n\n你买得进去，但代码里藏了规则"只有庄家能卖"，你的币被<b>锁死</b>，眼睁睁看着归零。名字取自"只进不出"的貔貅。'},
+   {ico:'🚩',h:'常见红旗（看到就警惕）',b:'• 流动性<b>没锁</b>、庄家能随时撤池跑路\n• 管理员能<b>随意增发</b>或<b>暂停交易</b>\n• 买卖<b>税极高</b>（比如卖出扣 50%）\n• 合约<b>没开源验证</b>\n• 持币<b>高度集中</b>在几个地址'},
+   {ico:'🛠️',h:'用工具 + AI 自动扫',b:'• <b>Honeypot 检测</b>、<b>Token Sniffer</b> 这类工具能自动扫合约的"能不能卖、税多少、权限"\n• 把合约信息丢给 <b>AI</b>："列出这个合约里所有可疑的权限和规则"\n\n几秒就能筛掉一大半明显的坑。'},
+   {ico:'⚠️',h:'终极防线：常识',b:'工具能降低风险，但<b>不能消除</b>。最大的几个红旗其实是常识：\n\n• <b>新币</b> + <b>承诺高收益</b> + <b>催你快买</b> = 收割三件套\n• 绝大多数新币，本质就是收割局',callout:'诚实到底：本课教你识别风险、保护自己，不是教你"找好币"。最安全的做法，是不碰你看不懂的东西。',warn:true},
+  ],
+  quiz:{q:'小测："能买进却卖不出"的骗局合约俗称什么？',opts:[['空气币',false],['貔貅盘——典型的只进不出骗局',true],['稳定币',false]],right:'对！貔貅盘靠合约规则锁死你的卖出，是最常见的链上骗局之一。'},
+  links:[['Honeypot 检测','https://honeypot.is'],['Token Sniffer','https://tokensniffer.com']]
  }
 };
 
@@ -304,6 +334,29 @@ const PRACTICE={
  ,'af-3':{intro:'去「Quant Lab」亲手跑一个量化策略（本站作者做的工具，浏览器内真实回测，不用装任何东西）。',
   html:`<a href="https://benjaminjason.github.io/quant-lab/" target="_blank"><button>🚀 打开 Quant Lab 跑回测</button></a><div class="pout" style="margin-top:10px"><b>小任务：</b>选「跌买涨卖」策略，把"跌多少买入"从 5% 改成 10% 再跑一次，看收益和回撤怎么变 —— 体会"换个参数结果就不同"=为什么不能轻信单次回测。</div>`,
   init(){}}
+ ,'w3-4':{intro:'拿一个你想投的合约，对照下面逐项打钩——勾得越多，越危险。',
+  html:`<div id="w34" style="font-size:13px;line-height:2.1">
+   <label><input type="checkbox" class="rfw"> 没有知名机构的审计报告</label><br>
+   <label><input type="checkbox" class="rfw"> 合约没开源/没验证（看不到源码）</label><br>
+   <label><input type="checkbox" class="rfw"> 管理员能随意增发代币</label><br>
+   <label><input type="checkbox" class="rfw"> 管理员能暂停交易/冻结转账</label><br>
+   <label><input type="checkbox" class="rfw"> 流动性没锁定，能随时撤池</label><br>
+   <label><input type="checkbox" class="rfw"> 代币高度集中在少数地址</label></div>
+   <button onclick="scoreW34()" style="margin-top:8px">算风险</button><div class="pout" id="w34out" style="display:none"></div>`,
+  init(){window.scoreW34=()=>{const n=document.querySelectorAll('.rfw:checked').length;const o=$('w34out');o.style.display='block';let s;if(n===0)s='<span class="big" style="color:var(--up)">✅ 暂无明显红旗</span><br><span style="font-size:12px;color:var(--tx2)">但仍要谨慎，再核对一次源码和权限。</span>';else if(n<=2)s=`<span class="big" style="color:var(--warn)">⚠️ ${n} 个红旗</span><br><span style="font-size:12px;color:var(--tx2)">有风险，谨慎对待，搞清楚每一项再说。</span>`;else s=`<span class="big" style="color:var(--dn)">🚨 ${n} 个红旗</span><br><span style="font-size:12px;color:var(--tx2)">高度危险，典型的"别碰"信号。</span>`;o.innerHTML=s;};}}
+ ,'ai-3':{intro:'输入一件你常做的重复任务，自动帮你拆成"4步 AI 工作流"的提示词模板。',
+  html:`<div class="prow"><input id="wfTask" value="写每周工作复盘" style="flex:1;min-width:150px"><button onclick="genWF()">拆成工作流</button></div><div class="pout" id="wfout" style="display:none"><div id="wftext" style="white-space:pre-wrap;font-size:12.5px"></div><button class="ghost" style="margin-top:8px" onclick="copyWF()">📋 复制</button></div>`,
+  init(){window.genWF=()=>{const t=$('wfTask').value.trim()||'这个任务';$('wftext').textContent=`把「${t}」拆成 4 步，我会一步步喂给你：\n\n第1步【收集】：帮我列出完成「${t}」需要哪些原始信息/素材。\n第2步【整理】：我把素材给你，你帮我归纳成几个要点。\n第3步【成稿】：基于这些要点，写成完整内容（说清对象、风格、长度）。\n第4步【润色/格式】：检查语气、精简啰嗦、套成我要的格式。\n\n（每一步的输出，我会作为下一步的输入贴给你。）`;$('wfout').style.display='block';};window.copyWF=()=>{navigator.clipboard&&navigator.clipboard.writeText($('wftext').textContent);};}}
+ ,'ac-3':{intro:'对照下面的骗局红旗逐项打钩，看看一个新币有多危险。',
+  html:`<div style="font-size:13px;line-height:2.1">
+   <label><input type="checkbox" class="rfs"> 卖出税极高（或根本卖不出）</label><br>
+   <label><input type="checkbox" class="rfs"> 流动性没锁，庄家能撤池</label><br>
+   <label><input type="checkbox" class="rfs"> 管理员能增发/暂停交易</label><br>
+   <label><input type="checkbox" class="rfs"> 合约没开源验证</label><br>
+   <label><input type="checkbox" class="rfs"> 持币高度集中在几个地址</label><br>
+   <label><input type="checkbox" class="rfs"> 新币 + 承诺高收益 + 催你快买</label></div>
+   <button onclick="scoreAc3()" style="margin-top:8px">算风险</button><div class="pout" id="ac3out" style="display:none"></div>`,
+  init(){window.scoreAc3=()=>{const n=document.querySelectorAll('.rfs:checked').length;const o=$('ac3out');o.style.display='block';let s;if(n===0)s='<span class="big" style="color:var(--up)">✅ 暂无明显红旗</span><br><span style="font-size:12px;color:var(--tx2)">但新币风险天然高，仍建议远观。</span>';else if(n<=2)s=`<span class="big" style="color:var(--warn)">⚠️ ${n} 个红旗</span><br><span style="font-size:12px;color:var(--tx2)">可疑，强烈建议远离。</span>`;else s=`<span class="big" style="color:var(--dn)">🚨 ${n} 个红旗 = 大概率收割局</span><br><span style="font-size:12px;color:var(--tx2)">教科书级骗局信号，别碰，别幻想自己能跑赢。</span>`;o.innerHTML=s;};}}
 };
 
 let curId=null,curSlide=0;
